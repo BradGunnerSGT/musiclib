@@ -65,3 +65,4 @@ django-admin --version
 ## First-time configuration of Musiclib
 
 
+django-admin

@@ -1,53 +1,47 @@
 from django.db import models
 
 # Create your models here.
-class Composer(models.Model):   
+class MyPerson(models.Model):
+    prefix = models.CharField(max_length=20, null = True, blank = True)
     first_name = models.CharField(max_length=200)
     middle_name = models.CharField(max_length=200, null = True, blank = True)
     last_name = models.CharField(max_length=200)
-    prefix = models.CharField(max_length=20, null = True, blank = True)
     suffix = models.CharField(max_length=20, null = True, blank = True)
 
     def name(self):
-        return ("%s %s" % (self.first_name, self.last_name))
+        return ("%s %s %s" % (self.first_name, self.middle_name, self.last_name))
 
-    def reversed_name(self, obj):
+    def full_name(self):
+        return ("%s %s %s" % (self.first_name, self.middle_name, self.last_name))
+
+    def reversed_name(self):
         return ("%s %s" % (self.last_name, self.first_name))
 
     def __unicode__(self):
         return ("%s %s" % (self.first_name, self.last_name))
+
+class Composer(MyPerson):   
+    def __unicode__(self):
+        return ("%s %s %s" % (self.first_name, self.middle_name, self.last_name))
+
+class Conductor(MyPerson):
+    pass
 
 class Publisher(models.Model):
     title = models.CharField(max_length=200)
 
     def __unicode__(self):
-        return ("%s" % (title,))
+        return ("%s" % (self.title,))
 
 
 class Piece(models.Model):
     title = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateField('date published')
     publisher = models.ForeignKey(Publisher)
     composer = models.ForeignKey(Composer)
-    
-
-class Conductor(models.Model):
-    first_name = models.CharField(max_length=200)
-    middle_name = models.CharField(max_length=200, null = True, blank = True)
-    last_name = models.CharField(max_length=200)
-    prefix = models.CharField(max_length=20, null = True, blank = True)
-    suffix = models.CharField(max_length=20, null = True, blank = True)
-
-    def name(self):
-        return ("%s %s" % (self.first_name, self.last_name))
-
-    def reversed_name(self, obj):
-        return ("%s %s" % (self.last_name, self.first_name))
-
     def __unicode__(self):
-        return ("%s %s" % (self.first_name, self.last_name))
-
-        
+        return ("%s -- %s" % (self.title, self.pub_date))
+    
 
 class Performance(models.Model):
     piece = models.ForeignKey(Piece)

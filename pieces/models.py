@@ -49,4 +49,5 @@ class Performance(models.Model):
     date = models.DateTimeField('date performed')
     notes = models.TextField(blank = True, null = True)
 
-
+#    def __unicode__(self):
+#        return ("%s" % (self.piece.title, self.date))

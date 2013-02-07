@@ -1,7 +1,5 @@
 from titles.models import Publisher
-from titles.models import Distributor
 from titles.models import Arranger
-from titles.models import Editor
 from titles.models import Composer
 from titles.models import OrchestraType
 from titles.models import ScoreType
@@ -32,9 +30,7 @@ class PerformanceAdmin(admin.ModelAdmin):
 
     
 admin.site.register(Publisher)
-admin.site.register(Distributor)
 admin.site.register(Arranger, NameAdmin)
-admin.site.register(Editor, NameAdmin)
 admin.site.register(Composer, NameAdmin)
 admin.site.register(OrchestraType)
 admin.site.register(ScoreType)

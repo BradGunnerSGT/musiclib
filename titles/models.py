@@ -69,11 +69,6 @@ class Soloist(PersonModel):
 
 
 
-class Editor(PersonModel):
-    pass
-
-
-
 class Arranger(PersonModel):
     pass
 
@@ -85,11 +80,6 @@ class ConcertMaster(PersonModel):
 
 
 class Publisher(NamedModel):
-    pass
-
-
-
-class Distributor(NamedModel):
     pass
 
 
@@ -125,10 +115,8 @@ class Title(BaseModel):
     number = models.PositiveIntegerField(unique = True)
     title = models.CharField(max_length=200)
     composer = models.ForeignKey(Composer)
+    arranger = models.ForeignKey(Arranger, verbose_name = 'arranger/editor', null = True, blank = True)
     publisher = models.ForeignKey(Publisher)
-    distributor = models.ForeignKey(Distributor, null = True, blank = True)
-    arranger = models.ForeignKey(Arranger, null = True, blank = True)
-    editor = models.ForeignKey(Editor, null = True, blank = True)
     instrumentation = models.CharField(max_length=200)
     score_type = models.ForeignKey(ScoreType, null = True, blank = True)
     orchestra_type = models.ForeignKey(OrchestraType, null = True, blank = True)
@@ -145,8 +133,8 @@ class Performance(BaseModel):
     conductor = models.ForeignKey(Conductor)
     location = models.ForeignKey(Location)
     duration = models.CharField(max_length=10, blank = True, null = True)
-    concert_type = models.ForeignKey(ConcertType, help_text = "concert type")
-    concert_master = models.ForeignKey(ConcertMaster, help_text = "concert master")
+    concert_type = models.ForeignKey(ConcertType, verbose_name = "concert type")
+    concert_master = models.ForeignKey(ConcertMaster, verbose_name = "concert master")
     soloist = models.ManyToManyField(Soloist, null = True, blank = True)
     info = models.CharField("additional info", max_length=200, blank = True, null = True)
     # eventually, we want to be able to upload attachments such as a copy of the score with

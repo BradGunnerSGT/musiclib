@@ -69,3 +69,5 @@ django-admin --version
 
 
 django-admin
+
+TODO: add more info here
